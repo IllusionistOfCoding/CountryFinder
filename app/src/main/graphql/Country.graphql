@@ -1,0 +1,37 @@
+# {"filter" : {"continent" : {"eq" : "EU"}}}
+query GetCountries($filter: CountryFilterInput) {
+    countries(filter: $filter) {
+        code
+        name
+        emoji
+        languages {
+            code
+            name
+        }
+        continent {
+            code
+            name
+        }
+    }
+}
+
+# {"code" :"it"}
+query GetCountry($code: ID!) {
+    country(code: $code) {
+        code
+        name
+        native
+        phone
+        continent {
+            code
+            name
+        }
+        capital
+        currency
+        languages {
+            code
+            name
+        }
+        emoji
+    }
+}

@@ -1,0 +1,16 @@
+query GetLanguages {
+    languages {
+        code
+        name
+        native
+    }
+}
+# {"code" :"it"}
+query GetLanguage($code: ID!) {
+    language(code: $code) {
+        code
+        name
+        native
+        rtl
+    }
+}

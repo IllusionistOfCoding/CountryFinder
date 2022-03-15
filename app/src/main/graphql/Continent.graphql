@@ -1,0 +1,26 @@
+query GetContinents {
+    continents {
+        code
+        name
+    }
+}
+
+# {"code" :"EU"}
+query GetContinent($code: ID!) {
+    continent(code: $code) {
+        code
+        name
+        countries {
+            code
+            name
+            emoji
+            languages {
+                code
+                name
+            }
+            continent {
+                code
+            }
+        }
+    }
+}

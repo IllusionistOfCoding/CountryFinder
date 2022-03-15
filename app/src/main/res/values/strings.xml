@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Country Finder</string>
+    <string name="generic_error">Can\'t update latest countries</string>
+    <string name="retry">Retry</string>
+    <string name="connection_less_error">Connessione assente</string>
+
+    <!-- Home Screen -->
+    <string name="empty_countries">No country found with these search parameters</string>
+
+    <!-- Detail Screen -->
+    <string name="world_map">global map of the world</string>
+</resources>
