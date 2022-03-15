@@ -294,7 +294,7 @@ fun CardCountry(
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview(country: Country = fakeCountry) {
-    ApolloTestTheme {
+    countryFinderTheme {
         HomeScreen(HomeUiState(), false, {}, {}, {}, {})
     }
 }
@@ -302,7 +302,7 @@ fun HomeScreenPreview(country: Country = fakeCountry) {
 @Preview(showBackground = true)
 @Composable
 fun CardCountryPreview(country: Country = fakeCountry) {
-    ApolloTestTheme {
+    countryFinderTheme {
         CardCountry(country, {})
     }
 }

@@ -59,12 +59,10 @@ and [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) where Google ne
 In [androidTest](app/src/androidTest/java/com/example/compose/jetchat) you'll find a suite of UI tests that
 showcase interesting patterns in Compose:
 
-#### [HomeScreenTest](app/src/androidTest/java/com/alessandrosisto/countryfinder/HomeScreenTest.kt)
-UI tests for the home screen.
-
-#### [DetailScreenTest](app/src/androidTest/java/com/alessandrosisto/countryfinder/DetailScreenTest.kt)
-UI tests for the detail screen.
-
-#### [ScreenshotComparatorTest](app/src/androidTest/java/com/alessandrosisto/countryfinder/ScreenshotComparatorTest.kt)
-Screenshot test. Checks that the user input composable, including extended controls, behave as
-expected showing and hiding the keyboard.
+ - [HomeScreenTest](app/src/androidTest/java/com/alessandrosisto/countryfinder/HomeScreenTest.kt)
+   UI tests for the home screen.
+ - [DetailScreenTest](app/src/androidTest/java/com/alessandrosisto/countryfinder/DetailScreenTest.kt)
+   UI tests for the detail screen.
+ - [ScreenshotComparatorTest](app/src/androidTest/java/com/alessandrosisto/countryfinder/ScreenshotComparatorTest.kt)
+   Screenshot test. Checks that the user input composable, including extended controls, behave as 
+   expected showing and hiding the keyboard.

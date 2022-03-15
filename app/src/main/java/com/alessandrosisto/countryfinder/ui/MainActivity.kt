@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
 
         val appContainer = (application as ApolloTestApplication).container
         setContent {
-            CountryApp(appContainer, ::isOnline)
+            CountryFinderApp(appContainer, ::isOnline)
         }
     }
 

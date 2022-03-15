@@ -36,7 +36,7 @@ val fakeCountry = Country(
 
 val emptyCountry = Country(
     code = "AA",
-    name = "something went wrong check the connection",
+    name = "Country Name",
     emoji = "",
     continent = Continent(
         code = "",

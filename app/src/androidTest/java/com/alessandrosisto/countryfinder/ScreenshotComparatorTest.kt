@@ -20,7 +20,7 @@ import com.alessandrosisto.countryfinder.ui.screens.detail.DetailScreen
 import com.alessandrosisto.countryfinder.ui.screens.detail.DetailUiState
 import com.alessandrosisto.countryfinder.ui.screens.home.HomeScreen
 import com.alessandrosisto.countryfinder.ui.screens.home.HomeUiState
-import com.alessandrosisto.countryfinder.ui.theme.ApolloTestTheme
+import com.alessandrosisto.countryfinder.ui.theme.countryFinderTheme
 import org.junit.Rule
 import org.junit.Test
 import java.io.FileOutputStream
@@ -41,7 +41,7 @@ class ScreenshotComparatorTest {
     @Test
     fun test_screenshot_HomeScreen() {
         composeTestRule.setContent {
-            ApolloTestTheme {
+            countryFinderTheme {
                 HomeScreen(
                     uiState = HomeUiState(countriesFeed = fakeAllCountriesInNA),
                     scrollToTop = false,
@@ -58,7 +58,7 @@ class ScreenshotComparatorTest {
     @Test
     fun test_screenshot_DetailScreen() {
         composeTestRule.setContent {
-            ApolloTestTheme {
+            countryFinderTheme {
                 DetailScreen(uiState = DetailUiState(fakeDetailCountry), {}) { }
             }
         }
@@ -68,7 +68,7 @@ class ScreenshotComparatorTest {
     @Test
     fun test_screenshot_ListItemsDialog() {
         composeTestRule.setContent {
-            ApolloTestTheme {
+            countryFinderTheme {
                 ListItemsDialog(fakeEntryDialog, "Languages", EntryDialog(code = "af"), {}, {})
             }
         }
@@ -79,7 +79,7 @@ class ScreenshotComparatorTest {
     /**
      * We capture the current screen as a bitmap, and then we save the image as a file with a name
      * and current timestamp in milliseconds. This file is saved under the app’s cache folder:
-     * /data/data/com.illusionistofcoding.apollotest/file/[goldenName].png
+     * /data/data/com.alessandrosisto.countryfinder/file/[goldenName].png
      * To recover it go to View/Tool Windows/Device File Explorer/
      * @param goldenName name of the file generate and compare
      * @param node represents a semantics node and the path to fetch it from the semantics tree

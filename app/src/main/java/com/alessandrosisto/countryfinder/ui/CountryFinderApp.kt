@@ -12,15 +12,15 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.alessandrosisto.countryfinder.repo.AppContainer
 import com.alessandrosisto.countryfinder.ui.routes.ApolloTestNavGraph
 import com.alessandrosisto.countryfinder.ui.routes.ApolloTestNavigationActions
-import com.alessandrosisto.countryfinder.ui.theme.ApolloTestTheme
+import com.alessandrosisto.countryfinder.ui.theme.countryFinderTheme
 
 @ExperimentalComposeUiApi
 @Composable
-fun CountryApp(
+fun CountryFinderApp(
     appContainer: AppContainer,
     isOnline: () -> Boolean
 ) {
-    ApolloTestTheme {
+    countryFinderTheme {
         ProvideWindowInsets {
             val systemUiController = rememberSystemUiController()
             val darkIcons = MaterialTheme.colors.isLight
