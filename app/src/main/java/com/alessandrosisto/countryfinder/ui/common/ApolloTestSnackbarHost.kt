@@ -8,6 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.alessandrosisto.countryfinder.ui.screens.UiState
 import com.google.accompanist.insets.systemBarsPadding
 
 /**

@@ -46,23 +46,22 @@ fun ApolloTestNavGraph(
         composable(route = ApolloTestDestinations.HOME_ROUTE) {
             val uiState by homeViewModel.uiState.collectAsState()
             val scrollToTop by homeViewModel.scrollToTop.collectAsState()
-            val action = if (isOnline()) {
-                if (uiState.allContinents.isEmpty()) {
-                    { homeViewModel.setupContinentsAndLanguages() }
-                } else {
-                    navigationActions.openDialog
-                }
-            } else {
-                { homeViewModel.updateErrorMessages(R.string.connection_less_error) }
-            }
+            val wrapActionOpenDialog = homeViewModel.handleConnectionAction(
+                isOnline = isOnline(),
+                action = navigationActions.openDialog
+            )
+            val wrapActionNavigateToDetail = homeViewModel.handleConnectionAction(
+                isOnline = isOnline(),
+                action = navigationActions.navigateToDetail
+            )
 
             HomeScreen(
                 uiState = uiState,
                 scrollToTop = scrollToTop,
                 onErrorDismiss = { homeViewModel.errorShown(it) },
                 updateScrollToTop = { homeViewModel.updateScrollToTop(it) },
-                openDialog = action,
-                navigateToDetail = navigationActions.navigateToDetail
+                openDialog = wrapActionOpenDialog,
+                navigateToDetail = wrapActionNavigateToDetail
             )
         }
         composable(
@@ -81,9 +80,8 @@ fun ApolloTestNavGraph(
             DetailScreen(
                 uiState = uiState,
                 onErrorDismiss = { detailViewModel.errorShown(it) },
-                onBackPress = {
-                    navController.popBackStack()
-                }
+                onBackPress = navController::popBackStack
+
             )
         }
         dialog(route = ApolloTestDestinations.DIALOG_ROUTE + "/{type}") { backStackEntry ->
@@ -116,7 +114,7 @@ fun ApolloTestNavGraph(
                 type = type,
                 selectedItem = entrySelected,
                 onItemSelected = onItemSelected,
-                onDismissDialog = { navController.popBackStack() }
+                onDismissDialog = navController::popBackStack
             )
         }
     }

@@ -2,7 +2,7 @@ package com.alessandrosisto.countryfinder.ui.screens.home
 
 import com.alessandrosisto.countryfinder.models.Country
 import com.alessandrosisto.countryfinder.models.EntryDialog
-import com.alessandrosisto.countryfinder.ui.common.UiState
+import com.alessandrosisto.countryfinder.ui.screens.UiState
 import com.alessandrosisto.countryfinder.utilis.CONTINENT_TYPE
 import com.alessandrosisto.countryfinder.utilis.ErrorMessage
 import com.alessandrosisto.countryfinder.utilis.LANGUAGE_TYPE

@@ -149,6 +149,18 @@ class HomeViewModel(
         }
     }
 
+    fun handleConnectionAction(isOnline: Boolean, action: (String) -> Unit): (String) -> Unit {
+        return if (isOnline) {
+            if (_homeUiState.value.allContinents.isEmpty()) {
+                { setupContinentsAndLanguages() }
+            } else {
+                action
+            }
+        } else {
+            { updateErrorMessages(R.string.connection_less_error) }
+        }
+    }
+
     /**
      * Notify that an error was displayed on the screen ed remove from state [errorMessages]
      */

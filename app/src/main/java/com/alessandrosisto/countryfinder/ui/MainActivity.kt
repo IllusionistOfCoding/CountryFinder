@@ -21,31 +21,7 @@ class MainActivity : ComponentActivity() {
 
         val appContainer = (application as ApolloTestApplication).container
         setContent {
-            CountryFinderApp(appContainer, ::isOnline)
+            CountryFinderApp(appContainer)
         }
-    }
-
-    private fun isOnline(): Boolean {
-        val connectivityManager =
-            this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val capabilities =
-            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-        if (capabilities != null) {
-            when {
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
-                    log("NetworkCapabilities.TRANSPORT_CELLULAR", "Internet", TLog.I)
-                    return true
-                }
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
-                    log("NetworkCapabilities.TRANSPORT_WIFI","Internet", TLog.I)
-                    return true
-                }
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> {
-                    log("NetworkCapabilities.TRANSPORT_ETHERNET","Internet", TLog.I)
-                    return true
-                }
-            }
-        }
-        return false
     }
 }

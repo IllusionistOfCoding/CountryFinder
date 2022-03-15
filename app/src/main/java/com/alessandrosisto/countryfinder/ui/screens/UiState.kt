@@ -1,4 +1,4 @@
-package com.alessandrosisto.countryfinder.ui.common
+package com.alessandrosisto.countryfinder.ui.screens
 
 import com.alessandrosisto.countryfinder.utilis.ErrorMessage
 
