@@ -10,7 +10,7 @@ import androidx.navigation.compose.rememberNavController
 import com.alessandrosisto.countryfinder.repo.AppContainer
 import com.alessandrosisto.countryfinder.ui.routes.ApolloTestNavGraph
 import com.alessandrosisto.countryfinder.ui.routes.ApolloTestNavigationActions
-import com.alessandrosisto.countryfinder.ui.theme.countryFinderTheme
+import com.alessandrosisto.countryfinder.ui.theme.CountryFinderTheme
 import com.alessandrosisto.countryfinder.utilis.isOnline
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -20,7 +20,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 fun CountryFinderApp(
     appContainer: AppContainer
 ) {
-    countryFinderTheme {
+    CountryFinderTheme {
         ProvideWindowInsets {
             val systemUiController = rememberSystemUiController()
             val darkIcons = MaterialTheme.colors.isLight
