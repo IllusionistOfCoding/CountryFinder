@@ -17,12 +17,13 @@ import com.alessandrosisto.countryfinder.ui.theme.CountryFinderTheme
 import com.alessandrosisto.countryfinder.ui.theme.darkPrimaryColor
 import com.alessandrosisto.countryfinder.ui.theme.textColor
 import com.alessandrosisto.countryfinder.utilis.NONE_CODE
+import com.alessandrosisto.countryfinder.utilis.Type
 
 @Composable
 fun ButtonFilter(
     modifier: Modifier,
     selectedLabel: EntryDialog,
-    onClick: (String) -> Unit
+    onClick: (Type) -> Unit
 ) {
     Button(
         modifier = modifier,

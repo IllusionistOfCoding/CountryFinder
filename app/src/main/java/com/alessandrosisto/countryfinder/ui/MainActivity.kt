@@ -1,16 +1,11 @@
 package com.alessandrosisto.countryfinder.ui
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.core.view.WindowCompat
-import com.alessandrosisto.countryfinder.ApolloTestApplication
-import com.alessandrosisto.countryfinder.utilis.TLog
-import com.alessandrosisto.countryfinder.utilis.log
+import com.alessandrosisto.countryfinder.CountryFinderApplication
 
 @ExperimentalComposeUiApi
 class MainActivity : ComponentActivity() {
@@ -19,7 +14,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
-        val appContainer = (application as ApolloTestApplication).container
+        val appContainer = (application as CountryFinderApplication).container
         setContent {
             CountryFinderApp(appContainer)
         }

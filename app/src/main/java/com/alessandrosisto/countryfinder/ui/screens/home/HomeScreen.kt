@@ -31,10 +31,7 @@ import com.google.accompanist.insets.statusBarsPadding
 import com.alessandrosisto.countryfinder.models.Country
 import com.alessandrosisto.countryfinder.models.EntryDialog
 import com.alessandrosisto.countryfinder.repo.fake.fakeCountry
-import com.alessandrosisto.countryfinder.utilis.TEST_button_filter
-import com.alessandrosisto.countryfinder.utilis.TEST_card_country
-import com.alessandrosisto.countryfinder.utilis.additionalInfo
-import com.alessandrosisto.countryfinder.utilis.typeToDisplayTitle
+import com.alessandrosisto.countryfinder.utilis.*
 
 @Composable
 fun HomeScreen(
@@ -42,7 +39,7 @@ fun HomeScreen(
     scrollToTop: Boolean,
     onErrorDismiss: (Long) -> Unit,
     updateScrollToTop: (Boolean) -> Unit,
-    openDialog: (String) -> Unit,
+    openDialog: (Type) -> Unit,
     navigateToDetail: (String) -> Unit,
 ) {
     val scaffoldState = rememberScaffoldState()
@@ -126,7 +123,7 @@ fun HomeScreen(
 fun FilterSection(
     selectedContinent: EntryDialog,
     selectedLanguage: EntryDialog,
-    openDialog: (String) -> Unit
+    openDialog: (Type) -> Unit
 ) {
     Column(
         modifier = Modifier

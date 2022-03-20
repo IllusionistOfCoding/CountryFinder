@@ -23,7 +23,7 @@ fun List<IdentifyInterface>.printList(): String {
 fun List<IdentifyInterface>.createLanguagesEntry(): List<EntryDialog> {
     return listOf(
         EntryDialog(
-            type = LANGUAGE_TYPE,
+            type = Type.Language,
             code = NONE_CODE
         )
     ) + this.map { it.toEntryDialog() }
@@ -31,9 +31,9 @@ fun List<IdentifyInterface>.createLanguagesEntry(): List<EntryDialog> {
 
 fun IdentifyInterface.toEntryDialog(): EntryDialog {
     val type = when (this) {
-        is Continent -> CONTINENT_TYPE
-        is Language -> LANGUAGE_TYPE
-        else -> COUNTRY_TYPE
+        is Continent -> Type.Continent
+        is Language -> Type.Language
+        else -> Type.Country
     }
     return EntryDialog(
         type = type,
@@ -68,10 +68,10 @@ fun List<Country>.filterLanguage(code: String): List<Country> {
     }
 }
 
-fun String.typeToDisplayTitle(): String {
+fun Type.typeToDisplayTitle(): String {
     return when (this) {
-        CONTINENT_TYPE -> "Continents"
-        COUNTRY_TYPE -> "Countries"
+        Type.Continent -> "Continents"
+        Type.Country -> "Countries"
         else -> "Languages"
     }
 }

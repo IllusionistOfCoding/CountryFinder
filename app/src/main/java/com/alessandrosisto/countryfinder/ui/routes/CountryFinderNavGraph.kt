@@ -13,7 +13,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.alessandrosisto.countryfinder.R
 import com.alessandrosisto.countryfinder.models.EntryDialog
 import com.alessandrosisto.countryfinder.repo.AppContainer
 import com.alessandrosisto.countryfinder.ui.common.ListItemsDialog
@@ -21,19 +20,19 @@ import com.alessandrosisto.countryfinder.ui.screens.detail.DetailScreen
 import com.alessandrosisto.countryfinder.ui.screens.detail.DetailViewModel
 import com.alessandrosisto.countryfinder.ui.screens.home.HomeScreen
 import com.alessandrosisto.countryfinder.ui.screens.home.HomeViewModel
-import com.alessandrosisto.countryfinder.utilis.CONTINENT_TYPE
+import com.alessandrosisto.countryfinder.utilis.Type
 import com.alessandrosisto.countryfinder.utilis.toContinent
 import com.alessandrosisto.countryfinder.utilis.toLanguage
 
 @ExperimentalComposeUiApi
 @Composable
-fun ApolloTestNavGraph(
+fun CountryFinderNavGraph(
     appContainer: AppContainer,
-    navigationActions: ApolloTestNavigationActions,
+    navigationActions: CountryFinderNavigationActions,
     isOnline: () -> Boolean,
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    startDestination: String = ApolloTestDestinations.HOME_ROUTE
+    startDestination: String = CountryFinderDestinations.HOME_ROUTE
 ) {
     val homeViewModel: HomeViewModel = viewModel(
         factory = HomeViewModel.provideFactory(countryRepository = appContainer.countryRepository)
@@ -43,29 +42,21 @@ fun ApolloTestNavGraph(
         startDestination = startDestination,
         modifier = modifier
     ) {
-        composable(route = ApolloTestDestinations.HOME_ROUTE) {
+        composable(route = CountryFinderDestinations.HOME_ROUTE) {
             val uiState by homeViewModel.uiState.collectAsState()
             val scrollToTop by homeViewModel.scrollToTop.collectAsState()
-            val wrapActionOpenDialog = homeViewModel.handleConnectionAction(
-                isOnline = isOnline(),
-                action = navigationActions.openDialog
-            )
-            val wrapActionNavigateToDetail = homeViewModel.handleConnectionAction(
-                isOnline = isOnline(),
-                action = navigationActions.navigateToDetail
-            )
 
             HomeScreen(
                 uiState = uiState,
                 scrollToTop = scrollToTop,
                 onErrorDismiss = { homeViewModel.errorShown(it) },
                 updateScrollToTop = { homeViewModel.updateScrollToTop(it) },
-                openDialog = wrapActionOpenDialog,
-                navigateToDetail = wrapActionNavigateToDetail
+                openDialog = navigationActions.openDialog,
+                navigateToDetail = navigationActions.navigateToDetail
             )
         }
         composable(
-            route = ApolloTestDestinations.DETAIL_ROUTE + "/{code}",
+            route = CountryFinderDestinations.DETAIL_ROUTE + "/{code}",
             arguments = listOf(navArgument("code") { type = NavType.StringType })
         ) { backStackEntry ->
             val detailViewModel: DetailViewModel = viewModel(
@@ -84,20 +75,23 @@ fun ApolloTestNavGraph(
 
             )
         }
-        dialog(route = ApolloTestDestinations.DIALOG_ROUTE + "/{type}") { backStackEntry ->
+        dialog(
+            route = CountryFinderDestinations.DIALOG_ROUTE + "/{type}",
+            arguments = listOf(navArgument("type") { type = NavType.EnumType(Type::class.java) })
+        ) { backStackEntry ->
             val uiState by homeViewModel.uiState.collectAsState()
-            val type = backStackEntry.arguments?.getString("type") ?: CONTINENT_TYPE
-            val entryList = if (type == CONTINENT_TYPE) {
+            val type: Type = backStackEntry.arguments?.getSerializable("type") as? Type ?: Type.Continent
+            val entryList = if (type == Type.Continent) {
                 uiState.allContinents
             } else {
                 uiState.allLanguages
             }
-            val entrySelected = if (type == CONTINENT_TYPE) {
+            val entrySelected = if (type == Type.Continent) {
                 uiState.selectedContinent
             } else {
                 uiState.selectedLanguage
             }
-            val onItemSelected: (EntryDialog) -> Unit = if (type == CONTINENT_TYPE) {
+            val onItemSelected: (EntryDialog) -> Unit = if (type == Type.Continent) {
                 { entry ->
                     navController.popBackStack()
                     homeViewModel.selectContinent(entry.toContinent())

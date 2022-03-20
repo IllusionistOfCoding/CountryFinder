@@ -2,11 +2,12 @@ package com.alessandrosisto.countryfinder.ui.routes
 
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
+import com.alessandrosisto.countryfinder.utilis.Type
 
 /**
- * Destinations used in the [ApolloTestApp].
+ * Destinations used in the [CountryFinderApp].
  */
-object ApolloTestDestinations {
+object CountryFinderDestinations {
     const val HOME_ROUTE = "home"
     const val DETAIL_ROUTE = "detail"
     const val DIALOG_ROUTE = "dialog"
@@ -15,9 +16,9 @@ object ApolloTestDestinations {
 /**
  * Models the navigation actions in the app.
  */
-class ApolloTestNavigationActions(navController: NavHostController) {
+class CountryFinderNavigationActions(navController: NavHostController) {
     val navigateToHome: () -> Unit = {
-        navController.navigate(ApolloTestDestinations.HOME_ROUTE) {
+        navController.navigate(CountryFinderDestinations.HOME_ROUTE) {
             // Pop up to the start destination of the graph to
             // avoid building up a large stack of destinations
             // on the back stack as users select items
@@ -32,7 +33,7 @@ class ApolloTestNavigationActions(navController: NavHostController) {
         }
     }
     val navigateToDetail: (code: String) -> Unit = {
-        navController.navigate(ApolloTestDestinations.DETAIL_ROUTE + "/$it") {
+        navController.navigate(CountryFinderDestinations.DETAIL_ROUTE + "/$it") {
             popUpTo(navController.graph.findStartDestination().id) {
                 saveState = true
             }
@@ -40,8 +41,8 @@ class ApolloTestNavigationActions(navController: NavHostController) {
             restoreState = true
         }
     }
-    val openDialog: (type: String) -> Unit = {
-        navController.navigate(ApolloTestDestinations.DIALOG_ROUTE + "/$it") {
+    val openDialog: (type: Type) -> Unit = {
+        navController.navigate(CountryFinderDestinations.DIALOG_ROUTE + "/$it") {
             popUpTo(navController.graph.findStartDestination().id) {
                 saveState = true
             }

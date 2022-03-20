@@ -17,12 +17,13 @@ import androidx.compose.ui.unit.sp
 import com.alessandrosisto.countryfinder.ui.theme.*
 import com.alessandrosisto.countryfinder.models.EntryDialog
 import com.alessandrosisto.countryfinder.repo.fake.fakeEntryDialog
+import com.alessandrosisto.countryfinder.utilis.Type
 import com.alessandrosisto.countryfinder.utilis.typeToDisplayTitle
 
 @Composable
 fun ListItemsDialog(
     list: List<EntryDialog>,
-    type: String,
+    type: Type,
     selectedItem: EntryDialog,
     onItemSelected: (EntryDialog) -> Unit,
     onDismissDialog: () -> Unit
@@ -142,5 +143,5 @@ private fun SingleChoiceItem(
 @Preview("ListItemsDialog", showBackground = true)
 @Composable
 fun PreviewListItemsDialog() {
-    ListItemsDialog(fakeEntryDialog, "Languages", EntryDialog(code = "af"), {}, {})
+    ListItemsDialog(fakeEntryDialog, Type.Language, EntryDialog(code = "af"), {}, {})
 }

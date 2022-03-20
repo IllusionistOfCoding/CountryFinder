@@ -1,9 +1,9 @@
 package com.alessandrosisto.countryfinder.models
 
-import com.alessandrosisto.countryfinder.utilis.CONTINENT_TYPE
+import com.alessandrosisto.countryfinder.utilis.Type
 
 data class EntryDialog(
-    val type: String = CONTINENT_TYPE,
+    val type: Type = Type.Continent,
     val code: String,
     val name: String? = null
 )

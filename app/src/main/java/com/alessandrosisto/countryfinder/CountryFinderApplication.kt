@@ -5,7 +5,7 @@ import com.alessandrosisto.countryfinder.repo.AppContainer
 import com.alessandrosisto.countryfinder.repo.AppContainerImpl
 
 
-class ApolloTestApplication : Application() {
+class CountryFinderApplication : Application() {
 
     // AppContainer instance used by the rest of classes to obtain dependencies
     lateinit var container: AppContainer

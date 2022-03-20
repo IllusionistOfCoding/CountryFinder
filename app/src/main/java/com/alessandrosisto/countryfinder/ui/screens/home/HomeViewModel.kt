@@ -42,7 +42,7 @@ class HomeViewModel(
         setupContinentsAndLanguages()
     }
 
-    fun setupContinentsAndLanguages() {
+    private fun setupContinentsAndLanguages() {
         _homeUiState.update { it.copy(isLoading = true) }
         viewModelScope.launch(dispatcher) {
             try {
@@ -136,7 +136,7 @@ class HomeViewModel(
         }
     }
 
-    fun updateErrorMessages(@StringRes stringRes: Int) {
+    private fun updateErrorMessages(@StringRes stringRes: Int) {
         _homeUiState.update {
             val errorMessages = it.errorMessages + ErrorMessage(
                 id = UUID.randomUUID().mostSignificantBits,
@@ -149,7 +149,7 @@ class HomeViewModel(
         }
     }
 
-    fun handleConnectionAction(isOnline: Boolean, action: (String) -> Unit): (String) -> Unit {
+    fun handleConnectionAction(isOnline: Boolean, action: (Type) -> Unit): (Type) -> Unit {
         return if (isOnline) {
             if (_homeUiState.value.allContinents.isEmpty()) {
                 { setupContinentsAndLanguages() }

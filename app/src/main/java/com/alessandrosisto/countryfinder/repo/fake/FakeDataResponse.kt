@@ -4,6 +4,7 @@ import com.alessandrosisto.countryfinder.models.Continent
 import com.alessandrosisto.countryfinder.models.Country
 import com.alessandrosisto.countryfinder.models.EntryDialog
 import com.alessandrosisto.countryfinder.models.Language
+import com.alessandrosisto.countryfinder.utilis.Type
 
 val fakeAllContinents = listOf(
     Continent(code = "AF", name = "Africa"),
@@ -152,21 +153,21 @@ val fakeAllCountries = listOf(
 )
 
 val fakeEntryDialog = listOf(
-    EntryDialog(type = "language", code = "af", name = "Afrikaans"),
-    EntryDialog(type = "language",code = "am", name = "Amharic"),
-    EntryDialog(type = "language",code = "ar", name = "Arabic"),
-    EntryDialog(type = "language",code = "ay", name = "Aymara"),
-    EntryDialog(type = "language",code = "az", name = "Azerbaijani"),
-    EntryDialog(type = "language",code = "be", name = "Belarusian"),
-    EntryDialog(type = "language",code = "bg", name = "Bulgarian"),
-    EntryDialog(type = "language",code = "bi", name = "Bislama"),
-    EntryDialog(type = "language",code = "bn", name = "Bengali"),
-    EntryDialog(type = "language",code = "bs", name = "Bosnian"),
-    EntryDialog(type = "language",code = "ca", name = "Catalan"),
-    EntryDialog(type = "language",code = "ch", name = "Chamorro"),
-    EntryDialog(type = "language",code = "cs", name = "Czech"),
-    EntryDialog(type = "language",code = "da", name = "Danish"),
-    EntryDialog(type = "language",code = "de", name = "German"),
+    EntryDialog(type = Type.Language, code = "af", name = "Afrikaans"),
+    EntryDialog(type = Type.Language,code = "am", name = "Amharic"),
+    EntryDialog(type = Type.Language,code = "ar", name = "Arabic"),
+    EntryDialog(type = Type.Language,code = "ay", name = "Aymara"),
+    EntryDialog(type = Type.Language,code = "az", name = "Azerbaijani"),
+    EntryDialog(type = Type.Language,code = "be", name = "Belarusian"),
+    EntryDialog(type = Type.Language,code = "bg", name = "Bulgarian"),
+    EntryDialog(type = Type.Language,code = "bi", name = "Bislama"),
+    EntryDialog(type = Type.Language,code = "bn", name = "Bengali"),
+    EntryDialog(type = Type.Language,code = "bs", name = "Bosnian"),
+    EntryDialog(type = Type.Language,code = "ca", name = "Catalan"),
+    EntryDialog(type = Type.Language,code = "ch", name = "Chamorro"),
+    EntryDialog(type = Type.Language,code = "cs", name = "Czech"),
+    EntryDialog(type = Type.Language,code = "da", name = "Danish"),
+    EntryDialog(type = Type.Language,code = "de", name = "German"),
 )
 
 val fakeAllLanguages = listOf(
