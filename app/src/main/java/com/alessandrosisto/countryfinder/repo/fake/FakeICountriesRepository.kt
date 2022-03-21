@@ -1,10 +1,10 @@
 package com.alessandrosisto.countryfinder.repo.fake
 
-import com.alessandrosisto.countryfinder.models.Continent
-import com.alessandrosisto.countryfinder.models.Country
-import com.alessandrosisto.countryfinder.models.Language
 import com.alessandrosisto.countryfinder.repo.CountryRepositoryInterface
 import com.alessandrosisto.countryfinder.utilis.Result
+import fragment.ContinentFragment
+import fragment.CountryFragment
+import fragment.LanguageFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
@@ -19,7 +19,7 @@ class FakeCountryRepository: CountryRepositoryInterface {
     // succeed
     private var requestCount = 0
 
-    override suspend fun getAllContinents(): Result<List<Continent>> {
+    override suspend fun getAllContinents(): Result<List<ContinentFragment>> {
         return withContext(Dispatchers.IO) {
             val response = fakeAllContinents
             delay(500) // pretend we're on a slow network
@@ -31,7 +31,7 @@ class FakeCountryRepository: CountryRepositoryInterface {
         }
     }
 
-    override suspend fun getAllLanguages(): Result<List<Language>> {
+    override suspend fun getAllLanguages(): Result<List<LanguageFragment>> {
         return withContext(Dispatchers.IO) {
             val response = fakeAllLanguages
             delay(500) // pretend we're on a slow network
@@ -43,7 +43,7 @@ class FakeCountryRepository: CountryRepositoryInterface {
         }
     }
 
-    override suspend fun getCountry(code: String): Result<Country> {
+    override suspend fun getCountry(code: String): Result<CountryFragment> {
         return withContext(Dispatchers.IO) {
             val response = fakeCountry
             delay(500) // pretend we're on a slow network
@@ -55,7 +55,7 @@ class FakeCountryRepository: CountryRepositoryInterface {
         }
     }
 
-    override suspend fun getAllCountriesInContinent(code: String): Result<List<Country>> {
+    override suspend fun getAllCountriesInContinent(code: String): Result<List<CountryFragment>> {
         return withContext(Dispatchers.IO) {
             val response = fakeAllCountriesInNA
             delay(500) // pretend we're on a slow network

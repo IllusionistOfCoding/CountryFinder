@@ -5,11 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.alessandrosisto.countryfinder.R
-import com.alessandrosisto.countryfinder.models.Continent
-import com.alessandrosisto.countryfinder.models.Country
-import com.alessandrosisto.countryfinder.models.Language
 import com.alessandrosisto.countryfinder.repo.CountryRepositoryInterface
 import com.alessandrosisto.countryfinder.utilis.*
+import fragment.ContinentFragment
+import fragment.CountryFragment
+import fragment.LanguageFragment
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -25,7 +25,7 @@ class HomeViewModel(
     private val countryRepository: CountryRepositoryInterface
 ) : ViewModel() {
 
-    private var cachedCountriesFeed: List<Country> = listOf()
+    private var cachedCountriesFeed: List<CountryFragment> = listOf()
 
     private val _homeUiState = MutableStateFlow(HomeUiState())
     val uiState = _homeUiState.stateIn(
@@ -50,7 +50,8 @@ class HomeViewModel(
                 val deferredLanguages = async { countryRepository.getAllLanguages() }
                 when (val result = deferredContinents.await()) {
                     is Result.Success -> {
-                        log("allContinents : ${result.data.printList()}", "MAIN_FLOW")
+                        val listName = (result.data as? List<ContinentFragment>)?.map { it.name }
+                        log("allContinents : $listName", "MAIN_FLOW")
                         _homeUiState.update { currentUiState ->
                             currentUiState.copy(
                                 allContinents = result.data.map { it.toEntryDialog() },
@@ -65,7 +66,8 @@ class HomeViewModel(
                 }
                 when (val result = deferredLanguages.await()) {
                     is Result.Success -> {
-                        log("allLanguages : ${result.data.printList()}", "MAIN_FLOW")
+                        val listName = (result.data as? List<LanguageFragment>)?.map { it.name }
+                        log("allLanguages : $listName", "MAIN_FLOW")
                         _homeUiState.update {
                             it.copy(
                                 allLanguages = result.data.createLanguagesEntry(),
@@ -85,12 +87,12 @@ class HomeViewModel(
         }
     }
 
-    fun selectContinent(continent: Continent) {
+    fun selectContinent(continent: ContinentFragment) {
         _homeUiState.update { it.copy(selectedContinent = continent.toEntryDialog()) }
         refreshCountries(continent.code)
     }
 
-    fun selectLanguage(language: Language) {
+    fun selectLanguage(language: LanguageFragment) {
         _homeUiState.update {
             it.copy(
                 countriesFeed = cachedCountriesFeed.filterLanguage(language.code),
@@ -108,7 +110,8 @@ class HomeViewModel(
             try {
                 when (val result = countryRepository.getAllCountriesInContinent(codeContinent)) {
                     is Result.Success -> {
-                        log("refreshCountries : ${result.data.printList()}", "MAIN_FLOW")
+                        val listName = (result.data as? List<CountryFragment>)?.map { it.name }
+                        log("refreshCountries : $listName", "MAIN_FLOW")
                         _homeUiState.update {
                             cachedCountriesFeed = result.data
                             it.copy(

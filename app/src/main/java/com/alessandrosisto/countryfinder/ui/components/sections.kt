@@ -1,4 +1,4 @@
-package com.alessandrosisto.countryfinder.ui.common
+package com.alessandrosisto.countryfinder.ui.components
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.*
@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.alessandrosisto.countryfinder.ui.theme.white20
 import com.alessandrosisto.countryfinder.utilis.TEST_progress_bar
-
 
 @Composable
 fun SingleEntrySection(label: String, text: String) {

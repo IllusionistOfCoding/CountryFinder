@@ -15,7 +15,7 @@ import com.alessandrosisto.countryfinder.models.EntryDialog
 import com.alessandrosisto.countryfinder.repo.fake.fakeAllCountriesInNA
 import com.alessandrosisto.countryfinder.repo.fake.fakeDetailCountry
 import com.alessandrosisto.countryfinder.repo.fake.fakeEntryDialog
-import com.alessandrosisto.countryfinder.ui.common.ListItemsDialog
+import com.alessandrosisto.countryfinder.ui.components.ListItemsDialog
 import com.alessandrosisto.countryfinder.ui.screens.detail.DetailScreen
 import com.alessandrosisto.countryfinder.ui.screens.detail.DetailUiState
 import com.alessandrosisto.countryfinder.ui.screens.home.HomeScreen

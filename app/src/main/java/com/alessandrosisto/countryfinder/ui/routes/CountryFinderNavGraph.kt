@@ -15,7 +15,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.alessandrosisto.countryfinder.models.EntryDialog
 import com.alessandrosisto.countryfinder.repo.AppContainer
-import com.alessandrosisto.countryfinder.ui.common.ListItemsDialog
+import com.alessandrosisto.countryfinder.ui.components.ListItemsDialog
 import com.alessandrosisto.countryfinder.ui.screens.detail.DetailScreen
 import com.alessandrosisto.countryfinder.ui.screens.detail.DetailViewModel
 import com.alessandrosisto.countryfinder.ui.screens.home.HomeScreen

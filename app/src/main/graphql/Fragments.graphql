@@ -1,0 +1,33 @@
+fragment CountryFragment on Country {
+    code
+    name
+    native
+    phone
+    continent {
+        code
+        name
+    }
+    capital
+    currency
+    languages {
+        code
+        name
+        native
+    }
+    emoji
+}
+
+fragment ContinentFragment on Continent {
+    code
+    name
+    countries {
+        ... CountryFragment
+    }
+}
+
+fragment LanguageFragment on Language {
+    code
+    name
+    native
+    rtl
+}

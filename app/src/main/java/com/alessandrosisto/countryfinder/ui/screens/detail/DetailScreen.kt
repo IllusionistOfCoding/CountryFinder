@@ -33,14 +33,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.alessandrosisto.countryfinder.R
 import com.google.accompanist.insets.statusBarsPadding
-import com.alessandrosisto.countryfinder.models.Country
-import com.alessandrosisto.countryfinder.ui.common.CountryFilterSnackbar
-import com.alessandrosisto.countryfinder.ui.common.CountryFilterSnackbarHost
+import com.alessandrosisto.countryfinder.ui.components.CountryFilterSnackbar
+import com.alessandrosisto.countryfinder.ui.components.CountryFilterSnackbarHost
 import com.alessandrosisto.countryfinder.ui.theme.*
-import com.alessandrosisto.countryfinder.ui.common.FullScreenLoading
-import com.alessandrosisto.countryfinder.ui.common.SingleEntrySection
+import com.alessandrosisto.countryfinder.ui.components.FullScreenLoading
+import com.alessandrosisto.countryfinder.ui.components.SingleEntrySection
 import com.alessandrosisto.countryfinder.utilis.TEST_emoji_flag
 import com.alessandrosisto.countryfinder.utilis.additionalInfo
+import fragment.CountryFragment
 
 @ExperimentalComposeUiApi
 @Composable
@@ -119,14 +119,14 @@ fun ContentDetailScreen(uiState: DetailUiState) {
                 SingleEntrySection("\uD83D\uDCB5 currency", it)
             }
         }
-        if (uiState.countryFeed.languages.isNotEmpty() &&
-            uiState.countryFeed.languages.first().name.isNotEmpty()
+        if (!uiState.countryFeed.languages.isNullOrEmpty() &&
+            !uiState.countryFeed.languages.first().name.isNullOrEmpty()
         ) {
             item {
                 SingleEntrySection(
                     label = "\uD83E\uDDCF languages",
                     text = uiState.countryFeed.languages.map {
-                        it.name
+                        it.name ?: ""
                     }.reduce { acc, s -> "$acc, $s" })
             }
         }
@@ -141,7 +141,7 @@ fun ContentDetailScreen(uiState: DetailUiState) {
 
 @ExperimentalComposeUiApi
 @Composable
-fun ContinentMapSection(country: Country) {
+fun ContinentMapSection(country: CountryFragment) {
     Card(
         modifier = Modifier
             .fillMaxWidth(),
@@ -188,7 +188,7 @@ fun ContinentMapSection(country: Country) {
 
 @ExperimentalComposeUiApi
 @Composable
-fun CountryNameSection(country: Country) {
+fun CountryNameSection(country: CountryFragment) {
     val animAngle = rememberInfiniteTransition()
     val angle = animAngle.animateFloat(
         initialValue = 0f,
@@ -226,17 +226,15 @@ fun CountryNameSection(country: Country) {
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.h1,
         )
-        country.native?.let { native ->
-            Text(
-                text = native,
-                color = Color.White,
-                fontStyle = FontStyle.Italic,
-                style = MaterialTheme.typography.h2,
-                fontSize = 28.sp,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
-        }
+        Text(
+            text = country.native_,
+            color = Color.White,
+            fontStyle = FontStyle.Italic,
+            style = MaterialTheme.typography.h2,
+            fontSize = 28.sp,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+        )
     }
 }
 

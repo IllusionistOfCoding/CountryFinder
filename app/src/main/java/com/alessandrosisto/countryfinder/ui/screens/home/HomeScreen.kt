@@ -25,13 +25,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.alessandrosisto.countryfinder.R
-import com.alessandrosisto.countryfinder.ui.common.*
+import com.alessandrosisto.countryfinder.ui.components.*
 import com.alessandrosisto.countryfinder.ui.theme.*
 import com.google.accompanist.insets.statusBarsPadding
-import com.alessandrosisto.countryfinder.models.Country
 import com.alessandrosisto.countryfinder.models.EntryDialog
+import com.alessandrosisto.countryfinder.repo.fake.fakeAllCountriesInNA
 import com.alessandrosisto.countryfinder.repo.fake.fakeCountry
 import com.alessandrosisto.countryfinder.utilis.*
+import fragment.CountryFragment
 
 @Composable
 fun HomeScreen(
@@ -95,7 +96,7 @@ fun HomeScreen(
                         ),
                         state = homeListLazyListState
                     ) {
-                        items(uiState.countriesFeed) { item: Country ->
+                        items(uiState.countriesFeed) { item: CountryFragment ->
                             CardCountry(item) {
                                 navigateToDetail(item.code)
                             }
@@ -206,8 +207,8 @@ private fun HomeTopAppBar() {
 
 @Composable
 fun CardCountry(
-    country: Country,
-    navigateToDetail: (Country) -> Unit
+    country: CountryFragment,
+    navigateToDetail: (CountryFragment) -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -273,7 +274,7 @@ fun CardCountry(
                             modifier = Modifier.padding(top = 2.dp),
                             text = country.languages.map { it.name }.reduce { acc, s ->
                                 "$acc, $s"
-                            },
+                            } ?: "",
                             color = textColor,
                             fontStyle = FontStyle.Italic,
                             fontSize = 16.sp,
@@ -290,7 +291,7 @@ fun CardCountry(
 
 @Preview(showBackground = true)
 @Composable
-fun HomeScreenPreview(country: Country = fakeCountry) {
+fun HomeScreenPreview(country: CountryFragment = fakeCountry) {
     CountryFinderTheme {
         HomeScreen(HomeUiState(), false, {}, {}, {}, {})
     }
@@ -298,7 +299,7 @@ fun HomeScreenPreview(country: Country = fakeCountry) {
 
 @Preview(showBackground = true)
 @Composable
-fun CardCountryPreview(country: Country = fakeCountry) {
+fun CardCountryPreview(country: CountryFragment = fakeAllCountriesInNA.first()) {
     CountryFinderTheme {
         CardCountry(country, {})
     }

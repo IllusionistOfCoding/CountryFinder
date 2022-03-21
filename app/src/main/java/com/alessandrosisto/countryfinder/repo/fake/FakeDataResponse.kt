@@ -1,226 +1,189 @@
 package com.alessandrosisto.countryfinder.repo.fake
 
-import com.alessandrosisto.countryfinder.models.Continent
-import com.alessandrosisto.countryfinder.models.Country
 import com.alessandrosisto.countryfinder.models.EntryDialog
-import com.alessandrosisto.countryfinder.models.Language
 import com.alessandrosisto.countryfinder.utilis.Type
+import fragment.ContinentFragment
+import fragment.CountryFragment
+import fragment.LanguageFragment
 
 val fakeAllContinents = listOf(
-    Continent(code = "AF", name = "Africa"),
-    Continent(code = "AN", name = "Antarctica"),
-    Continent(code = "AS", name = "Asia"),
-    Continent(code = "EU", name = "Europe"),
-    Continent(code = "NA", name = "North America"),
-    Continent(code = "OC", name = "Oceania"),
-    Continent(code = "SA", name = "South America"),
+    ContinentFragment(code = "AF", name = "Africa", countries = listOf()),
+    ContinentFragment(code = "AN", name = "Antarctica", countries = listOf()),
+    ContinentFragment(code = "AS", name = "Asia", countries = listOf()),
+    ContinentFragment(code = "EU", name = "Europe", countries = listOf()),
+    ContinentFragment(code = "NA", name = "North America", countries = listOf()),
+    ContinentFragment(code = "OC", name = "Oceania", countries = listOf()),
+    ContinentFragment(code = "SA", name = "South America", countries = listOf()),
 )
 
-val fakeContinent = Continent(code = "EU", name = "Europe")
+val fakeContinent = ContinentFragment(code = "EU", name = "Europe", countries = listOf())
 
-val fakeCountry = Country(
+val fakeCountry = CountryFragment(
     code = "AD",
     name = "Andorra",
     emoji = "\uD83C\uDDE6\uD83C\uDDE9",
-    continent = Continent(
+    continent = CountryFragment.Continent(
         code = "EU",
-        name = "Europe"
+        name = "EUROPE"
     ),
     languages = listOf(
-        Language(
+        CountryFragment.Language(
             code = "ca",
             name = "Catalan",
-            native = "Català"
-        )
-    )
-)
-
-val emptyCountry = Country(
-    code = "AA",
-    name = "Country Name",
-    emoji = "",
-    continent = Continent(
-        code = "",
-        name = ""
-    ),
-    languages = listOf(
-        Language(
-            code = "",
-            name = "",
-            native = ""
+            native_ = "",
         )
     ),
-)
-
-val fakeDetailCountry = Country(
-    code = "AD",
-    name = "Andorra",
-    emoji = "\uD83C\uDDE6\uD83C\uDDE9",
-    continent = Continent(
-        code = "EU",
-        name = "Europe"
-    ),
-    languages = listOf(
-        Language(
-            code = "ca",
-            name = "Catalan",
-            native = "Català"
-        )
-    ),
-    native = "Andorran",
+    native_ = "Andorran",
     phone = "376",
     capital = "Andorra la Vella",
     currency = "EUR",
-    states = emptyList()
+)
+
+val emptyCountry = CountryFragment(
+    code = "AA",
+    name = "Country Name",
+    emoji = "",
+    continent = CountryFragment.Continent(
+        code = "",
+        name = "",
+    ),
+    languages = listOf(
+        CountryFragment.Language(
+            code = "",
+            name = "",
+            native_ = "",
+        )
+    ),
+    native_ = "",
+    phone = "",
+    capital = "",
+    currency = "",
+)
+
+val fakeDetailCountry = CountryFragment(
+    code = "AD",
+    name = "Andorra",
+    emoji = "\uD83C\uDDE6\uD83C\uDDE9",
+    continent = CountryFragment.Continent(
+        code = "EU",
+        name = "Europe"
+    ),
+    languages = listOf(
+        CountryFragment.Language(
+            code = "ca",
+            name = "Catalan",
+            native_ = "",
+        )
+    ),
+    native_ = "Andorran",
+    phone = "376",
+    capital = "Andorra la Vella",
+    currency = "EUR",
 )
 
 val fakeAllCountries = listOf(
     fakeCountry,
-    Country(
+    fakeCountry,
+    fakeCountry,
+    CountryFragment(
         code = "AE",
         name = "United Arab Emirates",
         emoji = "\uD83C\uDDE6\uD83C\uDDEA",
-        continent = Continent(
+        continent = CountryFragment.Continent(
             code = "AS",
             name = "Asia"
         ),
         languages = listOf(
-            Language(
+            CountryFragment.Language(
                 code = "ar",
                 name = "Arabic",
-                native = "العربية"
+                native_ = "",
             )
-        )
-    ),
-    Country(
-        code = "AF",
-        name = "Afghanistan",
-        emoji = "\uD83C\uDDE6\uD83C\uDDEB",
-        continent = Continent(
-            code = "AS",
-            name = "Asia"
         ),
-        languages = listOf(
-            Language(
-                code = "ps",
-                name = "Pashto",
-                native = "پښتو"
-            ),
-            Language(
-                code = "uz",
-                name = "Uzbek",
-                native = "Ўзбек"
-            ),
-            Language(
-                code = "tk",
-                name = "Turkmen",
-                native = "Туркмен / تركمن"
-            )
-        )
-    ),
-    Country(
-        code = "AG",
-        name = "Antigua and Barbuda",
-        emoji = "\uD83C\uDDE6\uD83C\uDDEC",
-        continent = Continent(
-            code = "NA",
-            name = "North America"
-        ),
-        languages = listOf(
-            Language(
-                code = "en",
-                name = "English",
-                native = "English"
-            )
-        )
-    ),
-    Country(
-        code = "AI",
-        name = "Anguilla",
-        emoji = "\uD83C\uDDE6\uD83C\uDDEE",
-        continent = Continent(
-            code = "NA",
-            name = "North America"
-        ),
-        languages = listOf(
-            Language(
-                code = "en",
-                name = "English",
-                native = "English"
-            )
-        )
+        native_ = "Andorran",
+        phone = "376",
+        capital = "Andorra la Vella",
+        currency = "EUR",
     ),
 )
 
 val fakeEntryDialog = listOf(
     EntryDialog(type = Type.Language, code = "af", name = "Afrikaans"),
-    EntryDialog(type = Type.Language,code = "am", name = "Amharic"),
-    EntryDialog(type = Type.Language,code = "ar", name = "Arabic"),
-    EntryDialog(type = Type.Language,code = "ay", name = "Aymara"),
-    EntryDialog(type = Type.Language,code = "az", name = "Azerbaijani"),
-    EntryDialog(type = Type.Language,code = "be", name = "Belarusian"),
-    EntryDialog(type = Type.Language,code = "bg", name = "Bulgarian"),
-    EntryDialog(type = Type.Language,code = "bi", name = "Bislama"),
-    EntryDialog(type = Type.Language,code = "bn", name = "Bengali"),
-    EntryDialog(type = Type.Language,code = "bs", name = "Bosnian"),
-    EntryDialog(type = Type.Language,code = "ca", name = "Catalan"),
-    EntryDialog(type = Type.Language,code = "ch", name = "Chamorro"),
-    EntryDialog(type = Type.Language,code = "cs", name = "Czech"),
-    EntryDialog(type = Type.Language,code = "da", name = "Danish"),
-    EntryDialog(type = Type.Language,code = "de", name = "German"),
+    EntryDialog(type = Type.Language, code = "am", name = "Amharic"),
+    EntryDialog(type = Type.Language, code = "ar", name = "Arabic"),
+    EntryDialog(type = Type.Language, code = "ay", name = "Aymara"),
+    EntryDialog(type = Type.Language, code = "az", name = "Azerbaijani"),
+    EntryDialog(type = Type.Language, code = "be", name = "Belarusian"),
+    EntryDialog(type = Type.Language, code = "bg", name = "Bulgarian"),
+    EntryDialog(type = Type.Language, code = "bi", name = "Bislama"),
+    EntryDialog(type = Type.Language, code = "bn", name = "Bengali"),
+    EntryDialog(type = Type.Language, code = "bs", name = "Bosnian"),
+    EntryDialog(type = Type.Language, code = "ca", name = "Catalan"),
+    EntryDialog(type = Type.Language, code = "ch", name = "Chamorro"),
+    EntryDialog(type = Type.Language, code = "cs", name = "Czech"),
+    EntryDialog(type = Type.Language, code = "da", name = "Danish"),
+    EntryDialog(type = Type.Language, code = "de", name = "German"),
 )
 
 val fakeAllLanguages = listOf(
-    Language(code = "af", name = "Afrikaans"),
-    Language(code = "am", name = "Amharic"),
-    Language(code = "ar", name = "Arabic"),
-    Language(code = "ay", name = "Aymara"),
-    Language(code = "az", name = "Azerbaijani"),
-    Language(code = "be", name = "Belarusian"),
-    Language(code = "bg", name = "Bulgarian"),
-    Language(code = "bi", name = "Bislama"),
-    Language(code = "bn", name = "Bengali"),
-    Language(code = "bs", name = "Bosnian"),
-    Language(code = "ca", name = "Catalan"),
-    Language(code = "ch", name = "Chamorro"),
-    Language(code = "cs", name = "Czech"),
-    Language(code = "da", name = "Danish"),
-    Language(code = "de", name = "German"),
+    LanguageFragment(code = "af", name = "Afrikaans", native_ = "", rtl = false),
+    LanguageFragment(code = "am", name = "Amharic", native_ = "", rtl = false),
+    LanguageFragment(code = "ar", name = "Arabic", native_ = "", rtl = false),
+    LanguageFragment(code = "ay", name = "Aymara", native_ = "", rtl = false),
+    LanguageFragment(code = "az", name = "Azerbaijani", native_ = "", rtl = false),
+    LanguageFragment(code = "be", name = "Belarusian", native_ = "", rtl = false),
+    LanguageFragment(code = "bg", name = "Bulgarian", native_ = "", rtl = false),
+    LanguageFragment(code = "bi", name = "Bislama", native_ = "", rtl = false),
+    LanguageFragment(code = "bn", name = "Bengali", native_ = "", rtl = false),
+    LanguageFragment(code = "bs", name = "Bosnian", native_ = "", rtl = false),
+    LanguageFragment(code = "ca", name = "Catalan", native_ = "", rtl = false),
+    LanguageFragment(code = "ch", name = "Chamorro", native_ = "", rtl = false),
+    LanguageFragment(code = "cs", name = "Czech", native_ = "", rtl = false),
+    LanguageFragment(code = "da", name = "Danish", native_ = "", rtl = false),
+    LanguageFragment(code = "de", name = "German", native_ = "", rtl = false),
 )
 
-val fakeLanguage = Language(code = "af", name = "Afrikaans")
+val fakeLanguage = fakeAllLanguages.first()
 
 val fakeAllCountriesInNA = listOf(
-    Country(
+    CountryFragment(
         code = "AG",
         name = "Antigua and Barbuda",
         emoji = "\uD83C\uDDE6\uD83C\uDDEC",
-        continent = Continent(
+        continent = CountryFragment.Continent(
             code = "NA",
-            name = "North America"
+            name = "Asia"
         ),
         languages = listOf(
-            Language(
+            CountryFragment.Language(
                 code = "en",
                 name = "English",
-                native = "English"
+                native_ = ""
             )
-        )
+        ),
+        native_ = "Andorran",
+        phone = "376",
+        capital = "Andorra la Vella",
+        currency = "EUR",
     ),
-    Country(
+    CountryFragment(
         code = "AI",
         name = "Anguilla",
         emoji = "\uD83C\uDDE6\uD83C\uDDEE",
-        continent = Continent(
+        continent = CountryFragment.Continent(
             code = "NA",
-            name = "North America"
+            name = "Asia"
         ),
         languages = listOf(
-            Language(
+            CountryFragment.Language(
                 code = "en",
                 name = "English",
-                native = "English"
+                native_ = ""
             )
-        )
+        ),
+        native_ = "Andorran",
+        phone = "376",
+        capital = "Andorra la Vella",
+        currency = "EUR",
     ),
 )

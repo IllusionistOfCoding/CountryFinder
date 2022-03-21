@@ -1,9 +1,13 @@
 package com.alessandrosisto.countryfinder.utilis
 
 import com.alessandrosisto.countryfinder.R
-import com.alessandrosisto.countryfinder.models.*
+import com.alessandrosisto.countryfinder.models.EntryDialog
+import fragment.ContinentFragment
+import fragment.CountryFragment
+import fragment.LanguageFragment
 
-fun Country.additionalInfo(): Int {
+
+fun CountryFragment.additionalInfo(): Int {
     return when (this.continent.code) {
         "AF" -> R.drawable.africa
         "AN" -> R.drawable.antarctica
@@ -16,11 +20,11 @@ fun Country.additionalInfo(): Int {
     }
 }
 
-fun List<IdentifyInterface>.printList(): String {
-    return this.map { it.name }.reduce { acc, s -> "$acc$s, " }
+fun List<String>.printList(): String {
+    return this.reduce { acc, s -> "$acc$s, " }
 }
 
-fun List<IdentifyInterface>.createLanguagesEntry(): List<EntryDialog> {
+fun List<LanguageFragment>.createLanguagesEntry(): List<EntryDialog> {
     return listOf(
         EntryDialog(
             type = Type.Language,
@@ -29,35 +33,43 @@ fun List<IdentifyInterface>.createLanguagesEntry(): List<EntryDialog> {
     ) + this.map { it.toEntryDialog() }
 }
 
-fun IdentifyInterface.toEntryDialog(): EntryDialog {
-    val type = when (this) {
-        is Continent -> Type.Continent
-        is Language -> Type.Language
-        else -> Type.Country
-    }
+fun ContinentFragment.toEntryDialog(): EntryDialog {
     return EntryDialog(
-        type = type,
+        type = Type.Continent,
         code = this.code,
         name = this.name
     )
 }
 
-fun EntryDialog.toContinent(): Continent {
-    return Continent(
+fun LanguageFragment.toEntryDialog(): EntryDialog {
+    return EntryDialog(
+        type = Type.Language,
         code = this.code,
-        name = this.name ?: "none"
+        name = this.name
     )
 }
 
-fun EntryDialog.toLanguage(): Language {
-    return Language(
+fun EntryDialog.toContinent(): ContinentFragment {
+    return ContinentFragment(
         code = this.code,
-        name = this.name ?: "none"
+        name = this.name ?: "none",
+        countries = listOf()
     )
 }
 
-fun List<Country>.filterLanguage(code: String): List<Country> {
-    if (code == NONE_CODE) { return this }
+fun EntryDialog.toLanguage(): LanguageFragment {
+    return LanguageFragment(
+        code = this.code,
+        name = this.name ?: "none",
+        native_ = "",
+        rtl = false
+    )
+}
+
+fun List<CountryFragment>.filterLanguage(code: String): List<CountryFragment> {
+    if (code == NONE_CODE) {
+        return this
+    }
     return this.filter { country ->
         country.languages.forEach { lang ->
             if (lang.code == code) {

@@ -1,4 +1,4 @@
-package com.alessandrosisto.countryfinder.ui.common
+package com.alessandrosisto.countryfinder.ui.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.alessandrosisto.countryfinder.models.Country
 import com.alessandrosisto.countryfinder.models.EntryDialog
 import com.alessandrosisto.countryfinder.repo.fake.fakeCountry
 import com.alessandrosisto.countryfinder.ui.theme.CountryFinderTheme
@@ -18,6 +17,7 @@ import com.alessandrosisto.countryfinder.ui.theme.darkPrimaryColor
 import com.alessandrosisto.countryfinder.ui.theme.textColor
 import com.alessandrosisto.countryfinder.utilis.NONE_CODE
 import com.alessandrosisto.countryfinder.utilis.Type
+import fragment.CountryFragment
 
 @Composable
 fun ButtonFilter(
@@ -42,7 +42,7 @@ fun ButtonFilter(
 
 @Preview(showBackground = true)
 @Composable
-fun CardCountryPreview(country: Country = fakeCountry) {
+fun CardCountryPreview(country: CountryFragment = fakeCountry) {
     CountryFinderTheme {
         ButtonFilter(
             modifier = Modifier
