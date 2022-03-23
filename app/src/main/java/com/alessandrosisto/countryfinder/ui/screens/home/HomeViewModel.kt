@@ -5,12 +5,14 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alessandrosisto.countryfinder.R
+import com.alessandrosisto.countryfinder.di.MainDispatcher
 import com.alessandrosisto.countryfinder.repo.ICountryRepository
 import com.alessandrosisto.countryfinder.utilis.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import fragment.ContinentFragment
 import fragment.CountryFragment
 import fragment.LanguageFragment
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -23,7 +25,8 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val stateHandle: SavedStateHandle,
-    private val countryRepository: ICountryRepository
+    private val countryRepository: ICountryRepository,
+    @MainDispatcher private val dispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     private var cachedCountriesFeed: List<CountryFragment> = listOf()
@@ -45,7 +48,7 @@ class HomeViewModel @Inject constructor(
 
     private fun setupContinentsAndLanguages() {
         _homeUiState.update { it.copy(isLoading = true) }
-        viewModelScope.launch {
+        viewModelScope.launch(dispatcher) {
             try {
                 val deferredContinents = async { countryRepository.getAllContinents() }
                 val deferredLanguages = async { countryRepository.getAllLanguages() }
@@ -107,7 +110,7 @@ class HomeViewModel @Inject constructor(
      */
     private fun refreshCountries(codeContinent: String) {
         _homeUiState.update { it.copy(isLoading = true) }
-        viewModelScope.launch {
+        viewModelScope.launch(dispatcher) {
             try {
                 when (val result = countryRepository.getAllCountriesInContinent(codeContinent)) {
                     is Result.Success -> {
@@ -135,7 +138,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun updateScrollToTop(scroll: Boolean) {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatcher) {
             _scrollToTop.emit(scroll)
         }
     }

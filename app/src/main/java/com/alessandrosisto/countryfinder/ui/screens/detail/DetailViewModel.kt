@@ -4,11 +4,13 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alessandrosisto.countryfinder.R
+import com.alessandrosisto.countryfinder.di.MainDispatcher
 import com.alessandrosisto.countryfinder.repo.ICountryRepository
 import com.alessandrosisto.countryfinder.utilis.ErrorMessage
 import com.alessandrosisto.countryfinder.utilis.Result
 import com.alessandrosisto.countryfinder.utilis.log
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
@@ -20,7 +22,8 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailViewModel @Inject constructor(
     private val stateHandle: SavedStateHandle,
-    private val countryRepository: ICountryRepository
+    private val countryRepository: ICountryRepository,
+    @MainDispatcher private val dispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     var cachedCode = ""
@@ -37,7 +40,7 @@ class DetailViewModel @Inject constructor(
             cachedCode = code
 
             _detailUiState.update { it.copy(isLoading = true) }
-            viewModelScope.launch {
+            viewModelScope.launch(dispatcher) {
                 val result = countryRepository.getCountry(code)
                 _detailUiState.update {
                     when (result) {
