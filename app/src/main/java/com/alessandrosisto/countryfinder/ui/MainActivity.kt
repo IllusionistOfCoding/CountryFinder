@@ -6,17 +6,18 @@ import androidx.activity.compose.setContent
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.core.view.WindowCompat
 import com.alessandrosisto.countryfinder.CountryFinderApplication
+import dagger.hilt.android.AndroidEntryPoint
 
 @ExperimentalComposeUiApi
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
-        val appContainer = (application as CountryFinderApplication).container
         setContent {
-            CountryFinderApp(appContainer)
+            CountryFinderApp()
         }
     }
 }

@@ -1,7 +1,11 @@
+import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
     id("com.apollographql.apollo")
+    kotlin("kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 val composeVersion: String by project
@@ -10,6 +14,7 @@ val gsonVersion: String by project
 val coroutinesVersion: String by project
 val accompanistVersion: String by project
 val lifecycleVersion: String by project
+val hiltVersion  : String by project
 
 android {
     compileSdk = 31
@@ -80,8 +85,10 @@ dependencies {
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
 
-    // Gson
-    implementation("com.google.code.gson:gson:$gsonVersion")
+    // Hilt
+    implementation("com.google.dagger:hilt-android:$hiltVersion")
+    kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
 
     // Compose
     implementation("androidx.compose.ui:ui:$composeVersion")

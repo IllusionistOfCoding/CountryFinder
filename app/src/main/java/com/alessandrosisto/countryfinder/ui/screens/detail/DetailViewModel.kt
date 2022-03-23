@@ -1,22 +1,26 @@
 package com.alessandrosisto.countryfinder.ui.screens.detail
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.alessandrosisto.countryfinder.R
-import com.alessandrosisto.countryfinder.repo.CountryRepositoryInterface
+import com.alessandrosisto.countryfinder.repo.ICountryRepository
 import com.alessandrosisto.countryfinder.utilis.ErrorMessage
 import com.alessandrosisto.countryfinder.utilis.Result
 import com.alessandrosisto.countryfinder.utilis.log
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.*
+import javax.inject.Inject
 
-class DetailViewModel(
-    private val countryRepository: CountryRepositoryInterface
+@HiltViewModel
+class DetailViewModel @Inject constructor(
+    private val stateHandle: SavedStateHandle,
+    private val countryRepository: ICountryRepository
 ) : ViewModel() {
 
     var cachedCode = ""
@@ -61,20 +65,6 @@ class DetailViewModel(
         _detailUiState.update { currentUiState ->
             val errorMessages = currentUiState.errorMessages.filterNot { it.id == errorId }
             currentUiState.copy(errorMessages = errorMessages)
-        }
-    }
-
-    /**
-     * Factory for DetailViewModel that takes [CountryRepositoryInterface] as a dependency
-     */
-    companion object {
-        fun provideFactory(
-            countryRepository: CountryRepositoryInterface,
-        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return DetailViewModel(countryRepository) as T
-            }
         }
     }
 }

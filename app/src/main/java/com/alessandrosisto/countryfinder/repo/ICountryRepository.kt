@@ -8,7 +8,7 @@ import fragment.LanguageFragment
 /**
  * Interface to the Country data layer.
  */
-interface CountryRepositoryInterface {
+interface ICountryRepository {
 
     suspend fun getAllContinents(): Result<List<ContinentFragment>>
 

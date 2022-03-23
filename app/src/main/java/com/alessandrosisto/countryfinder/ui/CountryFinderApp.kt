@@ -7,19 +7,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.rememberNavController
-import com.alessandrosisto.countryfinder.repo.AppContainer
 import com.alessandrosisto.countryfinder.ui.routes.CountryFinderNavGraph
-import com.alessandrosisto.countryfinder.ui.routes.CountryFinderNavigationActions
+import com.alessandrosisto.countryfinder.ui.routes.NavigationManager
 import com.alessandrosisto.countryfinder.ui.theme.CountryFinderTheme
-import com.alessandrosisto.countryfinder.utilis.isOnline
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @ExperimentalComposeUiApi
 @Composable
-fun CountryFinderApp(
-    appContainer: AppContainer
-) {
+fun CountryFinderApp() {
     CountryFinderTheme {
         ProvideWindowInsets {
             val systemUiController = rememberSystemUiController()
@@ -29,13 +25,11 @@ fun CountryFinderApp(
             }
             val navController = rememberNavController()
             val navigationActions = remember(navController) {
-                CountryFinderNavigationActions(navController)
+                NavigationManager(navController)
             }
             CountryFinderNavGraph(
-                appContainer = appContainer,
                 navController = navController,
                 navigationActions = navigationActions,
-                isOnline = appContainer.context::isOnline
             )
         }
     }

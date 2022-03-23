@@ -5,6 +5,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -14,7 +15,6 @@ import androidx.navigation.compose.dialog
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.alessandrosisto.countryfinder.models.EntryDialog
-import com.alessandrosisto.countryfinder.repo.AppContainer
 import com.alessandrosisto.countryfinder.ui.components.ListItemsDialog
 import com.alessandrosisto.countryfinder.ui.screens.detail.DetailScreen
 import com.alessandrosisto.countryfinder.ui.screens.detail.DetailViewModel
@@ -27,22 +27,19 @@ import com.alessandrosisto.countryfinder.utilis.toLanguage
 @ExperimentalComposeUiApi
 @Composable
 fun CountryFinderNavGraph(
-    appContainer: AppContainer,
-    navigationActions: CountryFinderNavigationActions,
-    isOnline: () -> Boolean,
+    navigationActions: NavigationManager,
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    startDestination: String = CountryFinderDestinations.HOME_ROUTE
+    startDestination: String = AppDestinations.HOME_ROUTE
 ) {
-    val homeViewModel: HomeViewModel = viewModel(
-        factory = HomeViewModel.provideFactory(countryRepository = appContainer.countryRepository)
-    )
+    val homeViewModel = hiltViewModel<HomeViewModel>()
     NavHost(
         navController = navController,
         startDestination = startDestination,
         modifier = modifier
     ) {
-        composable(route = CountryFinderDestinations.HOME_ROUTE) {
+        composable(route = AppDestinations.HOME_ROUTE) {
+
             val uiState by homeViewModel.uiState.collectAsState()
             val scrollToTop by homeViewModel.scrollToTop.collectAsState()
 
@@ -56,14 +53,10 @@ fun CountryFinderNavGraph(
             )
         }
         composable(
-            route = CountryFinderDestinations.DETAIL_ROUTE + "/{code}",
+            route = AppDestinations.DETAIL_ROUTE + "/{code}",
             arguments = listOf(navArgument("code") { type = NavType.StringType })
         ) { backStackEntry ->
-            val detailViewModel: DetailViewModel = viewModel(
-                factory = DetailViewModel.provideFactory(
-                    countryRepository = appContainer.countryRepository
-                )
-            )
+            val detailViewModel = hiltViewModel<DetailViewModel>()
             val code = backStackEntry.arguments?.getString("code") ?: "IT"
             detailViewModel.fetchCountry(code)
             val uiState by detailViewModel.uiState.collectAsState()
@@ -76,9 +69,10 @@ fun CountryFinderNavGraph(
             )
         }
         dialog(
-            route = CountryFinderDestinations.DIALOG_ROUTE + "/{type}",
+            route = AppDestinations.DIALOG_ROUTE + "/{type}",
             arguments = listOf(navArgument("type") { type = NavType.EnumType(Type::class.java) })
         ) { backStackEntry ->
+//            val homeViewModel = hiltViewModel<HomeViewModel>()
             val uiState by homeViewModel.uiState.collectAsState()
             val type: Type = backStackEntry.arguments?.getSerializable("type") as? Type ?: Type.Continent
             val entryList = if (type == Type.Continent) {

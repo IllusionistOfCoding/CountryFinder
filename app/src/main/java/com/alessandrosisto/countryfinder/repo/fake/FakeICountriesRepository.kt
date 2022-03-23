@@ -1,6 +1,6 @@
 package com.alessandrosisto.countryfinder.repo.fake
 
-import com.alessandrosisto.countryfinder.repo.CountryRepositoryInterface
+import com.alessandrosisto.countryfinder.repo.ICountryRepository
 import com.alessandrosisto.countryfinder.utilis.Result
 import fragment.ContinentFragment
 import fragment.CountryFragment
@@ -10,10 +10,10 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 
 /**
- * Implementation of [CountryRepositoryInterface] that returns a hardcoded list of
+ * Implementation of [ICountryRepository] that returns a hardcoded list of
  * countries, continents and languages with resources after some delay in a background thread.
  */
-class FakeCountryRepository: CountryRepositoryInterface {
+class FakeCountryRepository: ICountryRepository {
 
     // used to drive "random" failure in a predictable pattern, making the first request always
     // succeed

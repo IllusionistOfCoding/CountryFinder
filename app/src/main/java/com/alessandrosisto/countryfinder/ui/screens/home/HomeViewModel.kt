@@ -1,28 +1,29 @@
 package com.alessandrosisto.countryfinder.ui.screens.home
 
 import androidx.annotation.StringRes
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.alessandrosisto.countryfinder.R
-import com.alessandrosisto.countryfinder.repo.CountryRepositoryInterface
+import com.alessandrosisto.countryfinder.repo.ICountryRepository
 import com.alessandrosisto.countryfinder.utilis.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import fragment.ContinentFragment
 import fragment.CountryFragment
 import fragment.LanguageFragment
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.util.*
+import javax.inject.Inject
 
 /**
  * ViewModel that handles the business logic of the Home screen
  */
-class HomeViewModel(
-    private val dispatcher: CoroutineDispatcher,
-    private val countryRepository: CountryRepositoryInterface
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    private val stateHandle: SavedStateHandle,
+    private val countryRepository: ICountryRepository
 ) : ViewModel() {
 
     private var cachedCountriesFeed: List<CountryFragment> = listOf()
@@ -44,7 +45,7 @@ class HomeViewModel(
 
     private fun setupContinentsAndLanguages() {
         _homeUiState.update { it.copy(isLoading = true) }
-        viewModelScope.launch(dispatcher) {
+        viewModelScope.launch {
             try {
                 val deferredContinents = async { countryRepository.getAllContinents() }
                 val deferredLanguages = async { countryRepository.getAllLanguages() }
@@ -106,7 +107,7 @@ class HomeViewModel(
      */
     private fun refreshCountries(codeContinent: String) {
         _homeUiState.update { it.copy(isLoading = true) }
-        viewModelScope.launch(dispatcher) {
+        viewModelScope.launch {
             try {
                 when (val result = countryRepository.getAllCountriesInContinent(codeContinent)) {
                     is Result.Success -> {
@@ -134,7 +135,7 @@ class HomeViewModel(
     }
 
     fun updateScrollToTop(scroll: Boolean) {
-        viewModelScope.launch(dispatcher) {
+        viewModelScope.launch {
             _scrollToTop.emit(scroll)
         }
     }
@@ -171,21 +172,6 @@ class HomeViewModel(
         _homeUiState.update { currentUiState ->
             val errorMessages = currentUiState.errorMessages.filterNot { it.id == errorId }
             currentUiState.copy(errorMessages = errorMessages)
-        }
-    }
-
-    /**
-     * Factory for HomeViewModel that takes [CountryRepositoryInterface] as a dependency
-     */
-    companion object {
-        fun provideFactory(
-            dispatcher: CoroutineDispatcher = Dispatchers.Main,
-            countryRepository: CountryRepositoryInterface,
-        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return HomeViewModel(dispatcher, countryRepository) as T
-            }
         }
     }
 }
