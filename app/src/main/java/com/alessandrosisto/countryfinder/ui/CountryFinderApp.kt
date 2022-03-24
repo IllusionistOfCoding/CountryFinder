@@ -29,7 +29,7 @@ fun CountryFinderApp() {
             }
             CountryFinderNavGraph(
                 navController = navController,
-                navigationActions = navigationActions,
+                navigationManager = navigationActions,
             )
         }
     }

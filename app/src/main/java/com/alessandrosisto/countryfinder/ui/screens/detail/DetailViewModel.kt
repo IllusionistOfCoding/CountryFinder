@@ -21,12 +21,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
-    private val stateHandle: SavedStateHandle,
+    stateHandle: SavedStateHandle,
     private val countryRepository: ICountryRepository,
     @MainDispatcher private val dispatcher: CoroutineDispatcher
 ) : ViewModel() {
-
-    var cachedCode = ""
 
     private val _detailUiState = MutableStateFlow(DetailUiState())
     val uiState = _detailUiState.stateIn(
@@ -35,26 +33,28 @@ class DetailViewModel @Inject constructor(
         _detailUiState.value
     )
 
-    fun fetchCountry(code: String) {
-        if (cachedCode != code) {
-            cachedCode = code
+    init {
+        val code = stateHandle.get("code") ?: "IT"
+        fetchCountry(code)
+    }
 
-            _detailUiState.update { it.copy(isLoading = true) }
-            viewModelScope.launch(dispatcher) {
-                val result = countryRepository.getCountry(code)
-                _detailUiState.update {
-                    when (result) {
-                        is Result.Success -> {
-                            log("fetchCountry : ${result.data.name}", "MAIN_FLOW")
-                            it.copy(countryFeed = result.data, isLoading = false)
-                        }
-                        is Result.Error -> {
-                            val errorMessages = it.errorMessages + ErrorMessage(
-                                id = UUID.randomUUID().mostSignificantBits,
-                                messageId = R.string.generic_error
-                            )
-                            it.copy(errorMessages = errorMessages, isLoading = false)
-                        }
+    private fun fetchCountry(code: String) {
+        log("fetchCountry code: $code", "MAIN_FLOW")
+        _detailUiState.update { it.copy(isLoading = true) }
+        viewModelScope.launch(dispatcher) {
+            val result = countryRepository.getCountry(code)
+            _detailUiState.update {
+                when (result) {
+                    is Result.Success -> {
+                        log("fetchCountry : ${result.data.name}", "MAIN_FLOW")
+                        it.copy(countryFeed = result.data, isLoading = false)
+                    }
+                    is Result.Error -> {
+                        val errorMessages = it.errorMessages + ErrorMessage(
+                            id = UUID.randomUUID().mostSignificantBits,
+                            messageId = R.string.generic_error
+                        )
+                        it.copy(errorMessages = errorMessages, isLoading = false)
                     }
                 }
             }
