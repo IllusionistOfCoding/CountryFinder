@@ -36,14 +36,20 @@ countries filtered by continent or language, and a detail screen which country i
 - [Accompanist](https://github.com/material-components/material-components-android) - Accompanist is a
   group of libraries that aim to supplement Jetpack Compose with features that are commonly required
   by developers but not yet available.
-- [Gson](https://github.com/google/gson) - Gson is a Java library that can be used to convert Java 
-  Objects into their JSON representation. It can also be used to convert a JSON string to an 
-  equivalent Java object. Gson can work with arbitrary Java objects including pre-existing objects 
-  that you do not have source-code of.
+- [Hilt](https://developer.android.com/training/dependency-injection/hilt-android) - Hilt is a 
+  dependency injection library for Android that reduces the boilerplate of doing manual dependency 
+  injection in your project.
 - [Apollo Kotlin](https://github.com/apollographql/apollo-kotlin) - Apollo Kotlin (formerly known as
   Apollo Android) is a GraphQL client that generates Kotlin and Java models from GraphQL queries.Apollo
   Kotlin executes queries and mutations against a GraphQL server and returns results as query-specific
   Kotlin types.
+
+## Screenshots 📷
+
+<p align="center">
+<img src="screenshots/screenshot_0.png" width="30%"/>
+<img src="screenshots/screenshot_1.png" width="30%"/>
+</p>
 
 ## Architecture 🗼
 

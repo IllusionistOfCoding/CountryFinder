@@ -50,8 +50,10 @@ fun HomeScreen(
     LaunchedEffect(
         key1 = scrollToTop,
     ) {
+        log("LaunchedEffect : $scrollToTop", "SCROLL_FLOW")
         if (scrollToTop) {
             homeListLazyListState.animateScrollToItem(0)
+            log("refreshCountries updateScrollToTop(false)", "SCROLL_FLOW")
             updateScrollToTop(false)
         }
     }

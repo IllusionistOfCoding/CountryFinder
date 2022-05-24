@@ -123,6 +123,7 @@ class HomeViewModel @Inject constructor(
                                 isLoading = false
                             )
                         }
+                        log("refreshCountries updateScrollToTop(true)", "SCROLL_FLOW")
                         updateScrollToTop(true)
                     }
                     is Result.Error -> {
@@ -139,6 +140,7 @@ class HomeViewModel @Inject constructor(
 
     fun updateScrollToTop(scroll: Boolean) {
         viewModelScope.launch(dispatcher) {
+            log("updateScrollToTop : $scroll", "SCROLL_FLOW")
             _scrollToTop.emit(scroll)
         }
     }
@@ -153,18 +155,6 @@ class HomeViewModel @Inject constructor(
                 errorMessages = errorMessages,
                 isLoading = false
             )
-        }
-    }
-
-    fun handleConnectionAction(isOnline: Boolean, action: (Type) -> Unit): (Type) -> Unit {
-        return if (isOnline) {
-            if (_homeUiState.value.allContinents.isEmpty()) {
-                { setupContinentsAndLanguages() }
-            } else {
-                action
-            }
-        } else {
-            { updateErrorMessages(R.string.connection_less_error) }
         }
     }
 

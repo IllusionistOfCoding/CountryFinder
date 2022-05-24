@@ -24,12 +24,12 @@ fun CountryFinderApp() {
                 systemUiController.setSystemBarsColor(Color.Transparent, darkIcons = darkIcons)
             }
             val navController = rememberNavController()
-            val navigationActions = remember(navController) {
+            val navigationManager = remember(navController) {
                 NavigationManager(navController)
             }
             CountryFinderNavGraph(
                 navController = navController,
-                navigationManager = navigationActions,
+                navigationManager = navigationManager,
             )
         }
     }
